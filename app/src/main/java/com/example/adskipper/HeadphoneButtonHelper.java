@@ -18,9 +18,9 @@ public class HeadphoneButtonHelper {
 
         Log.d(TAG, "Simulating click at coordinates : (" + x + ", " + y + ")");
 
-        View view = ((MainActivity) context).getWindow().getDecorView();
+        View rootView = ((MainActivity) context).getWindow().getDecorView();
         long downTime = System.currentTimeMillis();
-        long eventTime = System.currentTimeMillis() + 100;
+        long eventTime = downTime + 100; // Adjust the event timing if needed
         int metaState = 0;
 
         MotionEvent motionEventDown = MotionEvent.obtain(
@@ -33,7 +33,7 @@ public class HeadphoneButtonHelper {
         );
 
         MotionEvent motionEventUp = MotionEvent.obtain(
-                downTime + 100,
+                downTime + 100, // Adjust the timing for ACTION_UP event
                 eventTime + 100,
                 MotionEvent.ACTION_UP,
                 x,
@@ -41,8 +41,8 @@ public class HeadphoneButtonHelper {
                 metaState
         );
 
-        view.dispatchTouchEvent(motionEventDown);
-        view.dispatchTouchEvent(motionEventUp);
+        rootView.dispatchTouchEvent(motionEventDown);
+        rootView.dispatchTouchEvent(motionEventUp);
 
         motionEventDown.recycle();
         motionEventUp.recycle();
